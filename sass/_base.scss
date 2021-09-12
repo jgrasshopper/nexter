@@ -1,0 +1,72 @@
+// COLOR VARIABLES
+$color-primary: #c69963;
+$color-primary-dark: #b28451;
+
+$color-secondary: #101d2c;
+
+$color-grey-light-1: #f9f7f6;
+$color-grey-light-2: #aaa;
+
+$color-grey-dark-1: #54483a;
+$color-grey-dark-2: #6d5d4b;
+
+// FONT VARIABLES
+$font-primary: "Nunito", sans-serif;
+$font-display: "Josefin Sans", sans-serif;
+
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em; // 1200px
+$bp-large: 62.5em; // 1000px
+$bp-medium: 50em; // 800px
+$bp-small: 37.5em; // 600px
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // 10px / 16px = 62.5% -> 1rem = 10px
+
+  @media only screen and (max-width: $bp-largest) {
+    font-size: 50%;
+  }
+}
+
+body {
+  font-family: $font-primary;
+  color: $color-grey-dark-2;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
+  // We want to have 8 columns that has a fixed width and we want it to be in the middle and that will be the "repeat(8, minmax(min-content, 14rem))". We usually use 1140px for our container as it's width and 1140px divided by 8 is 142.5px so we added 14rem each, this way the 8 columns will have a total width of 1140px. We also want to use the minmax() function, first value is "min" which is the min-content, second value is "max" which is the 14rem that way, when the size of the screen is big, the max width of the column track will stay at 14rem and if the screen size became smaller, then the width should never be below the minimum content. After that, we want to have another column for the sidebar which is going to be the first column with an 8rem width. The last step is to center those 8 columns we created between the end of the viewport and the sidebar and that is why we added two more columns one to each side of the 8 columns, one on the left side which is before the 1st column and one in the right side after the 8th column and we want both of them to occupy the remaining space and that is 1fr.
+  // What we also did is follow the process on naming the grid lines so it will be easy for us when it's time to align our items
+  grid-template-columns:
+    [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr)
+    [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+    [center-end] minmax(6rem, 1fr) [full-end];
+
+  @media only screen and (max-width: $bp-large) {
+    // By adding 6rem in our rows, we will have another row where we can position our sidebar
+    grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);
+    // We need to remove the first column which is the sidebar sice we will transfer it at the top which is in our rows
+    grid-template-columns:
+      [full-start] minmax(6rem, 1fr)
+      [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+      [center-end] minmax(6rem, 1fr) [full-end];
+  }
+
+  @media only screen and (max-width: $bp-medium) {
+    // We want to add another row for the realtors section which is the min-content, we also want to fill out the header to the entire viewport. We use the calc function because we want the lading page to take up the whole viewport but because of the sidebar at the top with a height of 6rem, we need to deduct it from 100vh.
+    grid-template-rows: 6rem calc(100vh - 6rem);
+  }
+}

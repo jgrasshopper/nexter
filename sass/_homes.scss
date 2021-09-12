@@ -1,0 +1,88 @@
+.homes {
+  grid-column: center-start / center-end;
+  margin: 15rem 0;
+
+  display: grid;
+  // We still want to use the auto-fit keyword and use minmax for responsiveness.
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 7rem;
+}
+
+.home {
+  background-color: $color-grey-light-1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  // This is just to make a space between the grid cells.
+  row-gap: 3.5rem;
+
+  &__img {
+    width: 100%;
+    // Once we positioned the heart icon on into the same grid cell where the image is, the image itself will move down and that is because the automatic placement algorithem doesn't automatically put grid items one on top of another so what we need to do is to also specify a grid row to this image that is same with the heart icon
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+    z-index: 1;
+  }
+
+  &__like {
+    // We will be using overlapping to positioned the heart icon on top of the image.
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    fill: $color-primary;
+    height: 2.5rem;
+    width: 2.5rem;
+    // Just to make sure the hear icon will always stay on top of the image, we can set the z-index to higher than the z-index of the image.
+    z-index: 2;
+    // Since we want the heart icon to align at the very right end corner, what we can do is set it's justify-self to end.
+    justify-self: end;
+    margin: 1rem;
+  }
+
+  &__name {
+    grid-column: 1 / -1;
+    // We need to also add a z-index to make sure it will be on top of the image.
+    z-index: 3;
+    // The name will stretch since it's the default so we need to override it with align-self to end that way, it will be positioned at the bottom part of the image.
+    align-self: end;
+    // We want to set a grid-row to this name since we want to positioned it on top of the image, same with the heart icon but at the bottom part.
+    grid-row: 1 / 2;
+    // We don't want a 100% width that way, we can positioned the name at the center using justify-self.
+    width: 80%;
+    justify-self: center;
+    font-family: $font-display;
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 1.25rem;
+    background-color: $color-secondary;
+    font-weight: 400;
+    color: #fff;
+    // We then want to translate it for 50% so it will look like it's at the center between the image and the next row
+    transform: translateY(50%);
+  }
+
+  &__location,
+  &__rooms {
+    // The reason why we need to add a margin-top to this elements is that, we positioned the name class at the center where it overlaps the grid-gap that we just added and we need more space for this elements to breath.
+    margin-top: 2.5rem;
+  }
+
+  &__location,
+  &__rooms,
+  &__area,
+  &__price {
+    font-size: 1.5rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+
+    svg {
+      fill: $color-primary;
+      height: 2rem;
+      width: 2rem;
+      margin-right: 1rem;
+    }
+  }
+
+  &__btn {
+    grid-column: 1 / -1;
+  }
+}

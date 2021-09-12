@@ -1,0 +1,80 @@
+.header {
+  background-color: $color-grey-dark-1;
+  grid-column: full-start / col-end 6;
+  background-image: linear-gradient(
+      rgba($color-secondary, 0.93),
+      rgba($color-secondary, 0.93)
+    ),
+    url(../img/hero.jpeg);
+  background-size: cover;
+  // background-position: center;
+  display: grid;
+  // We need to define it's rows and since we want the logo to be at the very top and push all the other elements at the very bottom so there will be a big space after below the logo, what we can do is use 1fr and simply allow the other rows to be size automatically. In this case, if we define the first row to be 1fr, it will take the whole space that is available. We will have a big space below the logo since we define a height to our overall grid container and that height is the 80% of the viewport. To give more space to the other row, we can simply increase the row size since we can't style the grid gap. We want the second row to be size according to the content so we want it to be min-content, we need to use minmax() for the third one since we want to have the size to 6rem if the screen size is bigger but if the screen gets smaller, we want it to be the minimun content, next row will be 1fr since we want to also give it a big space between the next element
+  grid-template-rows: 1fr min-content minmax(min-content, 6rem) 1fr;
+  grid-template-columns: minmax(min-content, max-content);
+  // In order for us to give space between the elements, we can use the grid gap property.
+  row-gap: 1.5rem;
+  // We can then add a padding to the header that way, our there will be a space from each side of our elements
+  padding: 8rem;
+  // However, we want the padding at the top to be 4rem only since we want the logo to be near at the top of our container
+  padding-top: 4rem;
+  // We then want to center the entire grid inside our header
+  justify-content: center;
+
+  @media only screen and (max-width: $bp-medium) {
+    grid-column: 1 / -1;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    padding: 5rem;
+  }
+
+  &__logo {
+    height: 3rem;
+    justify-self: center;
+  }
+
+  &__seenon-text {
+    display: grid;
+    // We want the first and second line to be 1fr, taking the whole available space and the text which is the second column to be the max-content
+    grid-template-columns: 1fr max-content 1fr;
+    column-gap: 1.5rem;
+    // We want to also center these items vertically
+    align-items: center;
+    font-size: 1.6rem;
+    color: $color-grey-light-2;
+
+    // We want to create a ::before and ::after pseudo elements so we can create lines before and after the text. At the same time, this will create 3 grid items
+    &::before,
+    &::after {
+      content: "";
+      height: 1px;
+      background-color: currentColor;
+    }
+  }
+
+  &__btn {
+    // By defining the button to be 1fr, the button will look weird since the default for grid items is stretch, what we can do to fix that is to override it and use align-self and justify-self
+    align-self: start;
+    justify-self: start;
+  }
+
+  &__seenon-logos {
+    // We want to set the display to grid for the logos to align them
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 3rem;
+    // We also want to center these grid elements inside the grid container
+    justify-items: center;
+    align-items: center;
+
+    img {
+      // What this does is that the images can take up to 2.5rem but can be less than that once the screen size is smaller.
+      max-height: 2.5rem;
+      // We also need to set a max-width to 100% so the images will scale correctly
+      max-width: 100%;
+      // We want to make the images darker so it will be the same color with the other text instead of just the regular white. The default is 100% and if we set the value to less than 100% like 70%, the image will get darker. If we set it more than 100%, the image will get very light
+      filter: brightness(70%);
+    }
+  }
+}

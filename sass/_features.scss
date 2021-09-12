@@ -1,0 +1,35 @@
+.features {
+  grid-column: center-start / center-end;
+  margin: 15rem 0;
+  display: grid;
+  // We can make the columns responsive without writing media queries, we can use auto-fit with the minmax() function that way, when the screen size gets smaller, the elements will wrap and create a linebreaks. In this case, we used the word auto-fit with the minmax of 25rem and 1fr which means whent the screen size gets smaller, the grid items, should not be less than 25rem size and if it no longer fits, it will create a new line and if the screen size is big, the grid items should not be more than 1fr.
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 6rem;
+  // Since we have different columns and some of the columns has a fewer texts, we will notice that it has a bigger space and that is because the align items property is set by default to stretch. We just need to changed it to start and the other columns will be perfectly align with the other columns that has more texts
+  align-items: start;
+
+  @media only screen and (max-width: $bp-medium) {
+    margin: 10rem 0;
+  }
+}
+
+.feature {
+  // We made another grid inside of a grid to align the other elements inside of it.
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  row-gap: 1.5rem;
+  column-gap: 2.5rem;
+
+  &__icon {
+    fill: $color-primary;
+    width: 4.5rem;
+    height: 4.5rem;
+    grid-row: 1 / span 2;
+    // This will just move the icon up a little bit so it will look like the text beside it is place right at the center.
+    transform: translateY(-1rem);
+  }
+
+  &__text {
+    font-size: 1.7rem;
+  }
+}
