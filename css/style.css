@@ -39,6 +39,9 @@ body {
   font-size: 4.5rem;
   color: #f9f7f6;
   line-height: 1; }
+  @media only screen and (max-width: 50em) {
+    .heading-1 {
+      font-size: 4rem; } }
 
 .heading-2 {
   font-size: 4rem;
@@ -131,6 +134,7 @@ body {
   grid-column: full-start / col-end 6;
   background-image: linear-gradient(rgba(16, 29, 44, 0.93), rgba(16, 29, 44, 0.93)), url(../img/hero.jpeg);
   background-size: cover;
+  background-position: center;
   display: grid;
   grid-template-rows: 1fr min-content minmax(min-content, 6rem) 1fr;
   grid-template-columns: minmax(min-content, max-content);
@@ -143,7 +147,8 @@ body {
       grid-column: 1 / -1; } }
   @media only screen and (max-width: 37.5em) {
     .header {
-      padding: 5rem; } }
+      padding: 5rem;
+      row-gap: 2.5rem; } }
   .header__logo {
     height: 3rem;
     justify-self: center; }
